@@ -1,0 +1,11 @@
+matrix_t matrix_transpose(matrix_t matrix) {
+    matrix_t transposed = create_matrix(matrix.cols, matrix.rows); //<- assume this has been implemented
+
+    for (int row = 0; row < matrix.rows; ++row) {
+        for (int col = 0; col < matrix.cols; ++col) {
+            transposed.data[col * matrix.rows + row] = matrix.data[row * matrix.cols + col];
+        }
+    }
+
+    return transposed;
+}
