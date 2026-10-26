@@ -1,0 +1,32 @@
+Exercise 4:
+flag: flag{arm_nm_gdb_master}
+
+Explanation
+
+1. `nm vault.elf | grep -Ei 'win|flag|vault|printf'`  
+   Lists symbols in the executable and filters for names containing the specified keywords. This helped identify the `win` function.
+
+2. `objdump -d --disassemble=win vault.elf`  
+   Displays the assembly instructions for the `win` function. The disassembly showed a reference to `secret_flag` and a call to `printf`.
+
+3. `nm vault.elf | grep secret_flag`  
+   Finds the `secret_flag` symbol and displays its address.
+
+4. `objdump -t vault.elf | grep secret_flag`  
+   Searches the symbol table for `secret_flag` to inspect its symbol information.
+
+5. `gdb vault.elf`  
+   Starts the GNU debugger with the executable loaded.
+
+6. `disassemble win`  
+   Displays the assembly instructions for the `win` function in GDB.
+
+7. `x/s 0x140009000`  
+   Examines memory at address `0x140009000` as a string. This address displayed an empty string because it contains a pointer rather than the flag text itself.
+
+8. `info address secret_flag`  
+   Displays the storage address associated with the `secret_flag` symbol.
+
+9. `p secret_flag`  
+   Evaluates `secret_flag` in GDB and reveals the flag string.
+
